@@ -18,6 +18,13 @@ namespace Candidate.Application.Services.Candidate
         }
 
 
+        public async Task<CandidateDto> GetAsync(Guid id)
+        {
+            var entity = await _uow.Repository.GetAsync(id);
+            var data = _mapper.Map<Domain.Entities.Candidate, CandidateDto>(entity);
+            return data;
+        }
+
         public async Task<List<CandidateDto>> GetAllAsync()
         {
             var entities = await _uow.Repository.GetAllAsync();
@@ -31,6 +38,16 @@ namespace Candidate.Application.Services.Candidate
             _uow.Repository.Add(entity);
             await _uow.SaveChangesAsync();
             return entity.Id;
+
+        }
+
+        public async Task<Guid> UpdateAsync(UpdateCandidateDto model)
+        {
+            var entityToUpdate = await _uow.Repository.GetAsync(model.Id);
+            var newEntity = _mapper.Map(model , entityToUpdate);
+            _uow.Repository.Update(entityToUpdate , newEntity);
+            await _uow.SaveChangesAsync();
+            return entityToUpdate.Id;
 
         }
 

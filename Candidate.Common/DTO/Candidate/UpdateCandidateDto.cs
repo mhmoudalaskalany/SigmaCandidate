@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Candidate.Common.DTO.Candidate
 {
     [ExcludeFromCodeCoverage]
-    public class CandidateDto 
+    public class UpdateCandidateDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

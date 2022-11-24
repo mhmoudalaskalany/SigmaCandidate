@@ -7,7 +7,9 @@ namespace Candidate.Application.Services.Candidate
 {
     public interface ICandidateService
     {
+        Task<CandidateDto> GetAsync(Guid id);
         Task<List<CandidateDto>> GetAllAsync();
         Task<Guid> AddAsync(AddCandidateDto model);
+        Task<Guid> UpdateAsync(UpdateCandidateDto model);
     }
 }

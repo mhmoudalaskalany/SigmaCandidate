@@ -8,10 +8,13 @@ namespace Candidate.Application.Mapping
     {
         public void MapCandidate()
         {
-            CreateMap<Candidate.Domain.Entities.Candidate, CandidateDto>()
+            CreateMap<Domain.Entities.Candidate, CandidateDto>()
                 .ReverseMap();
 
-            CreateMap<Candidate.Domain.Entities.Candidate, AddCandidateDto>()
+            CreateMap<Domain.Entities.Candidate, AddCandidateDto>()
+                .ReverseMap();
+
+            CreateMap<Domain.Entities.Candidate, UpdateCandidateDto>()
                 .ReverseMap();
         }
     }
