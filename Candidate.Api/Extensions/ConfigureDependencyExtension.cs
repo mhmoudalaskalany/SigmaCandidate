@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Candidate.Application.Mapping;
 using Candidate.Application.Services.Candidate;
 using Candidate.Common.Abstraction.UnitOfWork;
@@ -7,6 +8,8 @@ using Candidate.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 
 namespace Candidate.Api.Extensions
 {
@@ -33,7 +36,14 @@ namespace Candidate.Api.Extensions
             services.RegisterAutoMapper();
             services.AddHealthChecks();
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(opt =>
+            {
+                opt.MapType<TimeSpan>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Example = new OpenApiString("00:00:00")
+                });
+            });
             services.AddSwaggerGenNewtonsoftSupport();
             return services;
         }

@@ -12,6 +12,9 @@ namespace Candidate.Api.Controllers
     /// <summary>
     /// Applications Controller
     /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v1/[controller]")]
+    [Produces("application/json")]
     public class CandidatesController : BaseController
     {
         private readonly ICandidateService _service;
@@ -42,13 +45,13 @@ namespace Candidate.Api.Controllers
         /// Add Candidate
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<List<CandidateDto>>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> PostAsync(AddCandidateDto model)
         {
-            var result = await _service.GetAllAsync();
+            var result = await _service.AddAsync(model);
             return Ok(result);
         }
     }
