@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Candidate.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Candidate.Api.Controllers.Base.BaseController">
+            <inheritdoc />
+        </member>
+        <member name="T:Candidate.Api.Controllers.CandidatesController">
+            <summary>
+            Applications Controller
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Controllers.CandidatesController.#ctor(Candidate.Application.Services.Candidate.ICandidateService)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Controllers.CandidatesController.CandidatesAsync">
+            <summary>
+            Get All Candidates
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Candidate.Api.Controllers.CandidatesController.PostAsync(Candidate.Common.DTO.Candidate.AddCandidateDto)">
+            <summary>
+            Add Candidate
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Candidate.Api.Extensions.ConfigureDependencyExtension">
+            <summary>
+            Dependency Extensions
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Register Extensions
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterDbContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add DbContext
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterAutoMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            register auto-mapper
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.AddLocalizationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register localization
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register Application Services Dependencies
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterInfrastructure(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Register Infrastructure
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Candidate.Api.Extensions.ConfigureMiddlewareExtension">
+            <summary>
+            Pipeline Extensions
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureMiddlewareExtension.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            General Configuration Method
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureMiddlewareExtension.ConfigureCors(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure Cors
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureMiddlewareExtension.CreateDatabase(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Create Database From Migration
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Candidate.Api.Extensions.ConfigureMiddlewareExtension.SwaggerConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            User Swagger
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:Candidate.Api.Program">
+            <summary>
+            Start Point
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Program.Main(System.String[])">
+            <summary>
+            Kick Off
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Candidate.Api.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Web Host Builder
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Candidate.Api.Startup">
+            <summary>
+            Start Up Class
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:Candidate.Api.Startup.Configuration">
+            <summary>
+            Public Configuration Property
+            </summary>
+        </member>
+        <member name="M:Candidate.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Dependencies
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Candidate.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configure Pipeline
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
