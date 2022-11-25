@@ -28,7 +28,7 @@ namespace Candidate.Application.Unit.Tests.Service
             var entities = Fixture.Build<Domain.Entities.Candidate>().CreateMany();
             var mapped = Fixture.Build<CandidateDto>().CreateMany().ToList();
 
-            _candidateRepositoryMock.Setup(x => x.GetAllAsync(It.IsAny<bool>())).Returns(Task.FromResult(entities));
+            _candidateRepositoryMock.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(entities));
 
             _mapperMock.Setup(x => x.Map<IEnumerable<Domain.Entities.Candidate>, List<CandidateDto>>(It.IsAny<IEnumerable<Domain.Entities.Candidate>>()))
                 .Returns(mapped);
