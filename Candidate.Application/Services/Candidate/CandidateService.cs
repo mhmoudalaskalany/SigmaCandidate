@@ -46,6 +46,13 @@ namespace Candidate.Application.Services.Candidate
             var newEntity = _mapper.Map(model , entityToUpdate);
             await _candidateRepository.UpdateAsync(entityToUpdate , newEntity);
             return entityToUpdate.Id;
+        }
+
+        public async Task<Guid> DeleteAsync(Guid id)
+        {
+            var entityToDelete = await _candidateRepository.GetAsync(id);
+            await _candidateRepository.DeleteAsync(entityToDelete);
+            return id;
 
         }
 

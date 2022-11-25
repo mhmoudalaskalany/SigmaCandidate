@@ -41,6 +41,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Candidate.Api.Controllers.CandidatesController.DeleteAsync(System.Guid)">
+            <summary>
+            Update Candidate
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Candidate.Api.Extensions.ConfigureDependencyExtension">
             <summary>
             Dependency Extensions

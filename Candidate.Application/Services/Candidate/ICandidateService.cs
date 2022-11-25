@@ -11,5 +11,6 @@ namespace Candidate.Application.Services.Candidate
         Task<List<CandidateDto>> GetAllAsync();
         Task<Guid> AddAsync(AddCandidateDto model);
         Task<Guid> UpdateAsync(UpdateCandidateDto model);
+        Task<Guid> DeleteAsync(Guid id);
     }
 }

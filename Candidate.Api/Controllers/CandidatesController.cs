@@ -82,5 +82,19 @@ namespace Candidate.Api.Controllers
             var result = await _service.UpdateAsync(model);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Update Candidate
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<Guid>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var result = await _service.DeleteAsync(id);
+            return Ok(result);
+        }
     }
 }
