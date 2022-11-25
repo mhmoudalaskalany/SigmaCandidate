@@ -64,12 +64,17 @@ namespace Candidate.Api
         private static void CreateFileIfNotExistAsync(IWebHostEnvironment env)
         {
             var rootDirectory = env.ContentRootPath;
-            var path = $"{rootDirectory}\\Files\\candidate.csv";
-            if (File.Exists(path))
+            var directory = $"{rootDirectory}\\Files";
+            if (!Directory.Exists(directory))
             {
-                return;
+                Directory.CreateDirectory(directory);
             }
-            File.Create(path);
+            var path = $"{directory}\\candidate.csv";
+            if (!File.Exists(path))
+            {
+                File.Create(path);
+            }
+
         }
     }
 }
