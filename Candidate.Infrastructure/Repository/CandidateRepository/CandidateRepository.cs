@@ -17,12 +17,12 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             _context = context;
         }
 
-        public async Task<Domain.Entities.Candidate> GetAsync(params object[] keys)
+        public async Task<Domain.Entities.Candidate> GetAsync(Guid id)
         {
-            return await _context.Candidates.FindAsync(keys);
+            return await _context.Candidates.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync(bool disableTracking = true)
+        public async Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync()
         {
             return await _context.Candidates.AsNoTracking().ToListAsync();
         }

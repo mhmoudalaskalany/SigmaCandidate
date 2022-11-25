@@ -11,13 +11,13 @@ namespace Candidate.Common.Abstraction.Repository
         /// Get
         /// </summary>
         /// <returns></returns>
-        Task<Domain.Entities.Candidate> GetAsync(params object[] keys);
+        Task<Domain.Entities.Candidate> GetAsync(Guid id);
 
         /// <summary>
         /// Get All
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync(bool disableTracking = true);
+        Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync();
 
         /// <summary>
         /// Any
