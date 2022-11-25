@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using Candidate.Api.Extensions;
+using Candidate.Common.FileHelper;
 using Candidate.Common.MiddleWares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,17 +63,9 @@ namespace Candidate.Api
 
         private static void CreateFileIfNotExistAsync(IWebHostEnvironment env)
         {
-            var rootDirectory = env.ContentRootPath;
-            var directory = $"{rootDirectory}\\Files";
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            var path = $"{directory}\\candidate.csv";
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
+            var rootDirectory = env.ContentRootPath + "\\Files";
+            FileHelper.CreateDirectory(rootDirectory);
+            FileHelper.CreateFile($"{rootDirectory}\\Candidate.csv");
 
         }
     }
