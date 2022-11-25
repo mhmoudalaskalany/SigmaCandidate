@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Candidate.Common.Abstraction.UnitOfWork;
+using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.DTO.Candidate;
 
 namespace Candidate.Application.Services.Candidate
@@ -10,24 +10,24 @@ namespace Candidate.Application.Services.Candidate
     public class CandidateService : ICandidateService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork<Domain.Entities.Candidate> _uow;
-        public CandidateService(IUnitOfWork<Domain.Entities.Candidate> uow, IMapper mapper)
+        private readonly ICandidateRepository _candidateRepository;
+        public CandidateService( IMapper mapper, ICandidateRepository candidateRepository)
         {
-            _uow = uow;
             _mapper = mapper;
+            _candidateRepository = candidateRepository;
         }
 
 
         public async Task<CandidateDto> GetAsync(Guid id)
         {
-            var entity = await _uow.Repository.GetAsync(id);
+            var entity = await _candidateRepository.GetAsync(id);
             var data = _mapper.Map<Domain.Entities.Candidate, CandidateDto>(entity);
             return data;
         }
 
         public async Task<List<CandidateDto>> GetAllAsync()
         {
-            var entities = await _uow.Repository.GetAllAsync();
+            var entities = await _candidateRepository.GetAllAsync();
             var data = _mapper.Map<IEnumerable<Domain.Entities.Candidate>, List<CandidateDto>>(entities);
             return data;
         }
@@ -35,18 +35,16 @@ namespace Candidate.Application.Services.Candidate
         public async Task<Guid> AddAsync(AddCandidateDto model)
         {
             var entity = _mapper.Map<Domain.Entities.Candidate>(model);
-            _uow.Repository.Add(entity);
-            await _uow.SaveChangesAsync();
+            await _candidateRepository.AddAsync(entity);
             return entity.Id;
 
         }
 
         public async Task<Guid> UpdateAsync(UpdateCandidateDto model)
         {
-            var entityToUpdate = await _uow.Repository.GetAsync(model.Id);
+            var entityToUpdate = await _candidateRepository.GetAsync(model.Id);
             var newEntity = _mapper.Map(model , entityToUpdate);
-            _uow.Repository.Update(entityToUpdate , newEntity);
-            await _uow.SaveChangesAsync();
+            await _candidateRepository.UpdateAsync(entityToUpdate , newEntity);
             return entityToUpdate.Id;
 
         }

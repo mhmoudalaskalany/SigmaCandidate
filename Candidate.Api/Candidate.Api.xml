@@ -79,9 +79,9 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterInfrastructure(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Candidate.Api.Extensions.ConfigureDependencyExtension.RegisterRepositories(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Register Infrastructure
+            Register Repositories
             </summary>
             <param name="services"></param>
         </member>

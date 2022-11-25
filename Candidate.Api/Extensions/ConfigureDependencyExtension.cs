@@ -2,9 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Candidate.Application.Mapping;
 using Candidate.Application.Services.Candidate;
-using Candidate.Common.Abstraction.UnitOfWork;
+using Candidate.Common.Abstraction.Repository;
 using Candidate.Infrastructure.Context;
-using Candidate.Infrastructure.UnitOfWork;
+using Candidate.Infrastructure.Repository.CandidateRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +32,7 @@ namespace Candidate.Api.Extensions
             services.RegisterDbContext(configuration);
             services.AddLocalizationServices();
             services.AddServices();
-            services.RegisterInfrastructure();
+            services.RegisterRepositories();
             services.RegisterAutoMapper();
             services.AddHealthChecks();
             services.AddControllers();
@@ -104,12 +104,12 @@ namespace Candidate.Api.Extensions
 
 
         /// <summary>
-        /// Register Infrastructure
+        /// Register Repositories
         /// </summary>
         /// <param name="services"></param>
-        private static void RegisterInfrastructure(this IServiceCollection services)
+        private static void RegisterRepositories(this IServiceCollection services)
         {
-            services.AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddScoped<ICandidateRepository , CandidateRepository>();
         }
     }
 }
