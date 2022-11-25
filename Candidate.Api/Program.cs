@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -10,15 +11,15 @@ namespace Candidate.Api
     [ExcludeFromCodeCoverage]
     public class Program
     {
-       
-      
+
+
         /// <summary>
         /// Kick Off
         /// </summary>
         /// <param name="args"></param>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            await CreateHostBuilder(args).Build().RunAsync();
         }
 
         /// <summary>
@@ -33,5 +34,6 @@ namespace Candidate.Api
                     webBuilder
                         .UseStartup<Startup>();
                 });
+
     }
 }

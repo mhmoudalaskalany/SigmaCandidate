@@ -31,5 +31,9 @@
     <ProjectReference Include="..\Candidate.Application\Candidate.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 
 </Project>

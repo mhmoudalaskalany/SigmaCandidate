@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Candidate.Api.Extensions;
 using Candidate.Common.MiddleWares;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,19 @@ namespace Candidate.Api
             {
                 endpoints.MapControllers();
             });
+            CreateFileIfNotExistAsync(env);
+        }
+
+
+        private static void CreateFileIfNotExistAsync(IWebHostEnvironment env)
+        {
+            var rootDirectory = env.ContentRootPath;
+            var path = $"{rootDirectory}\\Files\\candidate.csv";
+            if (File.Exists(path))
+            {
+                return;
+            }
+            File.Create(path);
         }
     }
 }
