@@ -11,7 +11,7 @@ namespace Candidate.Common.Abstraction.Repository
         /// Get
         /// </summary>
         /// <returns></returns>
-        Task<Domain.Entities.Candidate> GetAsync(Guid id);
+        Task<Domain.Entities.Candidate> GetAsync(string email);
 
         /// <summary>
         /// Get All
@@ -30,7 +30,7 @@ namespace Candidate.Common.Abstraction.Repository
         /// Add
         /// </summary>
         /// <returns></returns>
-        Task<Guid> AddAsync(Domain.Entities.Candidate newEntity);
+        Task<string> AddAsync(Domain.Entities.Candidate newEntity);
 
 
         /// <summary>

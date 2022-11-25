@@ -17,7 +17,7 @@
             Constructor
             </summary>
         </member>
-        <member name="M:Candidate.Api.Controllers.CandidatesController.CandidateAsync(System.Guid)">
+        <member name="M:Candidate.Api.Controllers.CandidatesController.CandidateAsync(System.String)">
             <summary>
             Get Single Candidates
             </summary>
@@ -41,7 +41,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Candidate.Api.Controllers.CandidatesController.DeleteAsync(System.Guid)">
+        <member name="M:Candidate.Api.Controllers.CandidatesController.DeleteAsync(System.String)">
             <summary>
             Update Candidate
             </summary>

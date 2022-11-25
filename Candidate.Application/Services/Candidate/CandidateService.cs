@@ -18,9 +18,9 @@ namespace Candidate.Application.Services.Candidate
         }
 
 
-        public async Task<CandidateDto> GetAsync(Guid id)
+        public async Task<CandidateDto> GetAsync(string email)
         {
-            var entity = await _candidateRepository.GetAsync(id);
+            var entity = await _candidateRepository.GetAsync(email);
             var data = _mapper.Map<Domain.Entities.Candidate, CandidateDto>(entity);
             return data;
         }
@@ -32,27 +32,27 @@ namespace Candidate.Application.Services.Candidate
             return data;
         }
 
-        public async Task<Guid> AddAsync(AddCandidateDto model)
+        public async Task<string> AddAsync(AddCandidateDto model)
         {
             var entity = _mapper.Map<Domain.Entities.Candidate>(model);
             await _candidateRepository.AddAsync(entity);
-            return entity.Id;
+            return entity.Email;
 
         }
 
-        public async Task<Guid> UpdateAsync(UpdateCandidateDto model)
+        public async Task<string> UpdateAsync(UpdateCandidateDto model)
         {
-            var entityToUpdate = await _candidateRepository.GetAsync(model.Id);
+            var entityToUpdate = await _candidateRepository.GetAsync(model.Email);
             var newEntity = _mapper.Map(model , entityToUpdate);
             await _candidateRepository.UpdateAsync(entityToUpdate , newEntity);
-            return entityToUpdate.Id;
+            return entityToUpdate.Email;
         }
 
-        public async Task<Guid> DeleteAsync(Guid id)
+        public async Task<string> DeleteAsync(string email)
         {
-            var entityToDelete = await _candidateRepository.GetAsync(id);
+            var entityToDelete = await _candidateRepository.GetAsync(email);
             await _candidateRepository.DeleteAsync(entityToDelete);
-            return id;
+            return email;
 
         }
 

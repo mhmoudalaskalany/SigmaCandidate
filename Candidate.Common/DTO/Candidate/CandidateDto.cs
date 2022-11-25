@@ -15,5 +15,6 @@ namespace Candidate.Common.DTO.Candidate
         public string GithubUrl { get; set; }
         public TimeSpan From { get; set; }
         public TimeSpan To { get; set; }
+        public string Comment { get; set; }
     }
 }

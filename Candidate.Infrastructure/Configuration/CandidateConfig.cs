@@ -7,7 +7,10 @@ namespace Candidate.Infrastructure.Configuration
     {
         public virtual void Configure(EntityTypeBuilder<Domain.Entities.Candidate> builder)
         {
-           
+            builder.HasKey(e => e.Email);
+            builder.Property(e => e.FirstName).IsRequired().HasMaxLength(50);
+            builder.Property(e => e.LastName).IsRequired().HasMaxLength(50);
+            builder.Property(e => e.Comment).IsRequired();
         }
     }
 }

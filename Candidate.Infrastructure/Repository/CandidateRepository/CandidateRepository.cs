@@ -17,9 +17,9 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             _context = context;
         }
 
-        public async Task<Domain.Entities.Candidate> GetAsync(Guid id)
+        public async Task<Domain.Entities.Candidate> GetAsync(string email)
         {
-            return await _context.Candidates.FindAsync(id);
+            return await _context.Candidates.FindAsync(email);
         }
 
         public async Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync()
@@ -29,11 +29,11 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task<bool> Any(Expression<Func<Domain.Entities.Candidate, bool>> predicate = null) => predicate == null ? await _context.Candidates.AnyAsync() : await _context.Candidates.AnyAsync(predicate);
 
-        public async Task<Guid> AddAsync(Domain.Entities.Candidate newEntity)
+        public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
         {
             var result = await _context.Candidates.AddAsync(newEntity);
             await _context.SaveChangesAsync();
-            return result.Entity.Id;
+            return result.Entity.Email;
         }
 
         public async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)

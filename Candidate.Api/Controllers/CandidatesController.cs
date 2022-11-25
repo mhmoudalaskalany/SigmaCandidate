@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Candidate.Api.Controllers.Base;
 using Candidate.Application.Services.Candidate;
@@ -31,13 +30,13 @@ namespace Candidate.Api.Controllers
         /// Get Single Candidates
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{email}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<List<CandidateDto>>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> CandidateAsync(Guid id)
+        public async Task<IActionResult> CandidateAsync(string email)
         {
-            var result = await _service.GetAsync(id);
+            var result = await _service.GetAsync(email);
             return Ok(result);
         }
 
@@ -60,7 +59,7 @@ namespace Candidate.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<Guid>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> PostAsync(AddCandidateDto model)
@@ -74,7 +73,7 @@ namespace Candidate.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<Guid>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
         public async Task<IActionResult> PutAsync(UpdateCandidateDto model)
@@ -87,13 +86,13 @@ namespace Candidate.Api.Controllers
         /// Update Candidate
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<Guid>))]
+        [HttpDelete("{email}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync(string email)
         {
-            var result = await _service.DeleteAsync(id);
+            var result = await _service.DeleteAsync(email);
             return Ok(result);
         }
     }
