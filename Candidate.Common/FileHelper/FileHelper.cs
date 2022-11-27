@@ -41,20 +41,20 @@ namespace Candidate.Common.FileHelper
         public static async Task<bool> IsExist(string path, string email)
         {
             var lines = await File.ReadAllLinesAsync(path);
-            var exist = lines.FirstOrDefault(x => x.Split(',')[1] == email);
+            var exist = lines.FirstOrDefault(x => x.Split(',')[1].Trim() == email.Trim());
             return !string.IsNullOrEmpty(exist);
         }
 
         public static async Task<string> GetSingleLine(string path, string email)
         {
             var lines = await File.ReadAllLinesAsync(path);
-            return lines.FirstOrDefault(x => x.Split(',')[1].Trim() == email);
+            return lines.FirstOrDefault(x => x.Split(',')[1].Trim() == email.Trim());
         }
 
         public static async Task DeleteLine(string path, string email)
         {
             var lines = await File.ReadAllLinesAsync(path);
-            var filteredLines = lines.Where(x => x.Split(',')[1].Trim() != email).ToArray();
+            var filteredLines = lines.Where(x => x.Split(',')[1].Trim() != email.Trim()).ToArray();
             await File.WriteAllLinesAsync(path, filteredLines);
         }
 
