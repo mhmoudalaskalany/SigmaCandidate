@@ -4,6 +4,7 @@ using Candidate.Api.Controllers.Base;
 using Candidate.Application.Services.Candidate;
 using Candidate.Common.Core;
 using Candidate.Common.DTO.Candidate;
+using Candidate.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,7 @@ namespace Candidate.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<List<CandidateDto>>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(EntityNotFoundException))]
         public async Task<IActionResult> CandidateAsync(string email)
         {
             var result = await _service.GetAsync(email);

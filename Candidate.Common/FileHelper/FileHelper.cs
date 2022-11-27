@@ -41,14 +41,25 @@ namespace Candidate.Common.FileHelper
         public static async Task<bool> IsExist(string path, string email)
         {
             var lines = await File.ReadAllLinesAsync(path);
-            return lines.Contains(email);
+            var exist = lines.FirstOrDefault(x => x.Split(',')[1] == email);
+            return !string.IsNullOrEmpty(exist);
         }
 
         public static async Task<string> GetSingleLine(string path, string email)
         {
             var lines = await File.ReadAllLinesAsync(path);
-            return lines.FirstOrDefault(x => x.Contains(email));
+            return lines.FirstOrDefault(x => x.Split(',')[1].Trim() == email);
         }
+
+        public static async Task DeleteLine(string path, string email)
+        {
+            var lines = await File.ReadAllLinesAsync(path);
+            var filteredLines = lines.Where(x => x.Split(',')[1].Trim() != email).ToArray();
+            await File.WriteAllLinesAsync(path, filteredLines);
+        }
+
+
+
 
 
         private static void AddCsvFileHeader(string filePath)

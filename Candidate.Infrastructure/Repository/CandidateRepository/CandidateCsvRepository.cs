@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
+using Candidate.Common.Exceptions;
 using Candidate.Common.FileHelper;
 using Microsoft.AspNetCore.Hosting;
 
@@ -17,7 +18,11 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task<Domain.Entities.Candidate> GetAsync(string email)
         {
-            var line = await FileHelper.GetSingleLine(_path , email);
+            var line = await FileHelper.GetSingleLine(_path, email);
+            if (line == null)
+            {
+                throw new EntityNotFoundException(email);
+            }
             var candidate = CsvRowParser.ParseRow(line);
             return candidate;
         }
@@ -29,7 +34,7 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
         {
-            await FileHelper.WriteCsv(newEntity , _path);
+            await FileHelper.WriteCsv(newEntity, _path);
             return newEntity.Email;
         }
 
@@ -40,11 +45,11 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task DeleteAsync(string email)
         {
-            var line = await FileHelper.GetSingleLine(_path,email);
+            await FileHelper.DeleteLine(_path, email);
         }
 
 
-        
+
 
 
     }

@@ -68,6 +68,12 @@ namespace Candidate.Common.MiddleWares
 
             if (ex is BaseException)
             {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(new ErrorResponse() { Message = ex.Message }));
+            }
+            if (ex is EntityNotFoundException)
+            {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(new ErrorResponse() { Message = ex.Message }));

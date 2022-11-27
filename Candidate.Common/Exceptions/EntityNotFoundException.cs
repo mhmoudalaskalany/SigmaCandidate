@@ -10,9 +10,8 @@ namespace Candidate.Common.Exceptions
         {
 
         }
-        public EntityNotFoundException(string entityId) : base($"Entity with Id: {entityId} is not found ")
+        public EntityNotFoundException(string entityId) : base($"Entity with Id: {entityId} is not found " , innerException:null)
         {
-
         }
         public EntityNotFoundException(string entityId, Exception innerException) : base($"Entity with Id: {entityId} is not found ", innerException)
         {
