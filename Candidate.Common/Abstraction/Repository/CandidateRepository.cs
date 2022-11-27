@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Candidate.Common.Abstraction.Repository
 {
@@ -14,16 +11,10 @@ namespace Candidate.Common.Abstraction.Repository
         Task<Domain.Entities.Candidate> GetAsync(string email);
 
         /// <summary>
-        /// Get All
-        /// </summary>
-        /// <returns></returns>
-        Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync();
-
-        /// <summary>
         /// Any
         /// </summary>
         /// <returns></returns>
-        Task<bool> Any(Expression<Func<Domain.Entities.Candidate, bool>> predicate = null);
+        Task<bool> Any(string email);
 
 
         /// <summary>
@@ -42,6 +33,6 @@ namespace Candidate.Common.Abstraction.Repository
         /// <summary>
         /// Remove
         /// </summary>
-        Task DeleteAsync(Domain.Entities.Candidate entity);
+        Task DeleteAsync(string email);
     }
 }

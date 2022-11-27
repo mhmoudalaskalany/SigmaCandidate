@@ -41,20 +41,6 @@ namespace Candidate.Api.Controllers
         }
 
         /// <summary>
-        /// Get All Candidates
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK , Type = typeof(ActionResult<List<CandidateDto>>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
-        public async Task<IActionResult> CandidatesAsync()
-        {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
-        }
-
-        /// <summary>
         /// Add Candidate
         /// </summary>
         /// <returns></returns>

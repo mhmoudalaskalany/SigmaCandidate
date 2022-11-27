@@ -18,15 +18,15 @@ namespace Candidate.Api.Unit.Tests.Controllers.Candidates
         }
 
         [Fact]
-        public async Task GetActionsAsync_Return_Ok()
+        public async Task GetCandidateAsync_Return_Ok()
         {
             //Arrange
-            var result = Fixture.Build<List<CandidateDto>>().Create();
-            _candidateServiceMock.Setup(x => x.GetAllAsync())
+            var result = Fixture.Build<CandidateDto>().Create();
+            _candidateServiceMock.Setup(x => x.GetAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(result));
 
             //Act
-            var response = await _controller.CandidatesAsync();
+            var response = await _controller.CandidateAsync("test@test.test");
 
             //Assert
             Assert.True(true);

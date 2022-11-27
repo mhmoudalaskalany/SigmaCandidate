@@ -23,12 +23,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Candidate.Api.Controllers.CandidatesController.CandidatesAsync">
-            <summary>
-            Get All Candidates
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Candidate.Api.Controllers.CandidatesController.PostAsync(Candidate.Common.DTO.Candidate.AddCandidateDto)">
             <summary>
             Add Candidate

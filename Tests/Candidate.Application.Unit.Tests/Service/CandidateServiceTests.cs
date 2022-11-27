@@ -22,22 +22,22 @@ namespace Candidate.Application.Unit.Tests.Service
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnList()
+        public async Task GetAsync_ReturnItem()
         {
             // arrange
-            var entities = Fixture.Build<Domain.Entities.Candidate>().CreateMany();
+            var entities = Fixture.Build<Domain.Entities.Candidate>().Create();
             var mapped = Fixture.Build<CandidateDto>().CreateMany().ToList();
 
-            _candidateRepositoryMock.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(entities));
+            _candidateRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(entities));
 
             _mapperMock.Setup(x => x.Map<IEnumerable<Domain.Entities.Candidate>, List<CandidateDto>>(It.IsAny<IEnumerable<Domain.Entities.Candidate>>()))
                 .Returns(mapped);
             var service = Fixture.Create<CandidateService>();
             // act
-            var result = await service.GetAllAsync();
+            var result = await service.GetAsync("test@test.test");
 
             // assert
-            Assert.True(result.Any());
+            Assert.NotNull(result);
         }
     }
 }

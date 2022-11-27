@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -22,12 +19,7 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             return await _context.Candidates.FindAsync(email);
         }
 
-        public async Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync()
-        {
-            return await _context.Candidates.AsNoTracking().ToListAsync();
-        }
-
-        public async Task<bool> Any(Expression<Func<Domain.Entities.Candidate, bool>> predicate = null) => predicate == null ? await _context.Candidates.AnyAsync() : await _context.Candidates.AnyAsync(predicate);
+        public async Task<bool> Any(string email) =>   await _context.Candidates.AnyAsync(x => x.Email == email);
 
         public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
         {
@@ -42,10 +34,15 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Domain.Entities.Candidate entity)
+        public async Task DeleteAsync(string email)
         {
-            _context.Candidates.Remove(entity);
-            await _context.SaveChangesAsync();
+            var entity = await _context.Candidates.FirstOrDefaultAsync(x => x.Email == email);
+            if (entity != null)
+            {
+                _context.Candidates.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+            
         }
     }
 }

@@ -38,6 +38,18 @@ namespace Candidate.Common.FileHelper
 
         }
 
+        public static async Task<bool> IsExist(string path, string email)
+        {
+            var lines = await File.ReadAllLinesAsync(path);
+            return lines.Contains(email);
+        }
+
+        public static async Task<string> GetSingleLine(string path, string email)
+        {
+            var lines = await File.ReadAllLinesAsync(path);
+            return lines.FirstOrDefault(x => x.Contains(email));
+        }
+
 
         private static void AddCsvFileHeader(string filePath)
         {

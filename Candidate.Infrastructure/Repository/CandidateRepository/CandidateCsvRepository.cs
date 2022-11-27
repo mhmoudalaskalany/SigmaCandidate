@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.FileHelper;
 using Microsoft.AspNetCore.Hosting;
@@ -21,19 +17,14 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task<Domain.Entities.Candidate> GetAsync(string email)
         {
-            var fileStream = File.OpenRead(_path);
-            //get from csv
-            return new Domain.Entities.Candidate();
+            var line = await FileHelper.GetSingleLine(_path , email);
+            var candidate = CsvRowParser.ParseRow(line);
+            return candidate;
         }
 
-        public async Task<IEnumerable<Domain.Entities.Candidate>> GetAllAsync()
+        public async Task<bool> Any(string email)
         {
-            return new List<Domain.Entities.Candidate>();
-        }
-
-        public async Task<bool> Any(Expression<Func<Domain.Entities.Candidate, bool>> predicate = null)
-        {
-            throw new NotImplementedException();
+            return await FileHelper.IsExist(_path, email);
         }
 
         public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
@@ -47,10 +38,13 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             await FileHelper.WriteCsv(newEntity, _path);
         }
 
-        public async Task DeleteAsync(Domain.Entities.Candidate entity)
+        public async Task DeleteAsync(string email)
         {
+            var line = await FileHelper.GetSingleLine(_path,email);
         }
 
+
+        
 
 
     }

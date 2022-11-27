@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Candidate.Common.Abstraction.Repository;
@@ -33,13 +32,6 @@ namespace Candidate.Application.Services.Candidate
             return data;
         }
 
-        public async Task<List<CandidateDto>> GetAllAsync()
-        {
-            var entities = await _candidateRepository(_infrastructureType.ToString()).GetAllAsync();
-            var data = _mapper.Map<IEnumerable<Domain.Entities.Candidate>, List<CandidateDto>>(entities);
-            return data;
-        }
-
         public async Task<string> AddAsync(AddCandidateDto model)
         {
             var entity = _mapper.Map<Domain.Entities.Candidate>(model);
@@ -58,8 +50,7 @@ namespace Candidate.Application.Services.Candidate
 
         public async Task<string> DeleteAsync(string email)
         {
-            var entityToDelete = await _candidateRepository(_infrastructureType.ToString()).GetAsync(email);
-            await _candidateRepository(_infrastructureType.ToString()).DeleteAsync(entityToDelete);
+            await _candidateRepository(_infrastructureType.ToString()).DeleteAsync(email);
             return email;
 
         }
