@@ -7,6 +7,10 @@ namespace Candidate.Common.DTO.Candidate
     [ExcludeFromCodeCoverage]
     public class AddCandidateDto
     {
+        [EmailAddress]
+        [Required]
+        public string Email { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
@@ -16,9 +20,7 @@ namespace Candidate.Common.DTO.Candidate
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
+      
 
         public string LinkedInUrl { get; set; }
 

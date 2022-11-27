@@ -109,7 +109,17 @@ namespace Candidate.Api.Extensions
         /// <param name="services"></param>
         private static void RegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped<ICandidateRepository , CandidateRepository>();
+            services.AddScoped<CandidateRepository>();
+            services.AddScoped<CandidateCsvRepository>();
+            services.AddScoped<Func<string, ICandidateRepository>>(serviceProvider => key =>
+            {
+                return key switch
+                {
+                    "Csv" => serviceProvider.GetService<CandidateCsvRepository>(),
+                    "Database" => serviceProvider.GetService<CandidateRepository>(),
+                    _ => serviceProvider.GetService<CandidateCsvRepository>()
+                };
+            });
         }
     }
 }

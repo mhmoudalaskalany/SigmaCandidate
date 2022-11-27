@@ -83,7 +83,7 @@ namespace Candidate.Api.Controllers
         }
 
         /// <summary>
-        /// Update Candidate
+        /// Delete Candidate
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{email}")]

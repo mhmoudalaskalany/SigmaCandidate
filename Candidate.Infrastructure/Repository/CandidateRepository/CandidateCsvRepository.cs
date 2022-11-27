@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
+using Candidate.Common.FileHelper;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Candidate.Infrastructure.Repository.CandidateRepository
@@ -37,17 +38,20 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
         {
-            await File.WriteAllTextAsync(_path, newEntity.ToString());
+            await FileHelper.WriteCsv(newEntity , _path);
             return newEntity.Email;
         }
 
         public async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
         {
-            await File.WriteAllTextAsync(_path, newEntity.ToString());
+            await FileHelper.WriteCsv(newEntity, _path);
         }
 
         public async Task DeleteAsync(Domain.Entities.Candidate entity)
         {
         }
+
+
+
     }
 }

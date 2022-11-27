@@ -1,1 +1,2 @@
-Email, FirstName, LastName, PhoneNumber, LinkedInUrl, GithubUrl, From, To, Comment
+Comment, Email, FirstName, From, GithubUrl, LastName, LinkedInUrl, PhoneNumber, To
+string, user@example.com, string, 00:00:00, string, string, string, string, 00:00:00
