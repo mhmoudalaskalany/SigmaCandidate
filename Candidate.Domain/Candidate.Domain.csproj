@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <Compile Remove="Entities\Base\**" />
+    <EmbeddedResource Remove="Entities\Base\**" />
+    <None Remove="Entities\Base\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Base\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

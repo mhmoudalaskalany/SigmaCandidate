@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Candidate.Api.Extensions;
 using Candidate.Common.FileHelper;
 using Candidate.Common.MiddleWares;
@@ -64,9 +65,11 @@ namespace Candidate.Api
         private static void CreateFileIfNotExistAsync(IWebHostEnvironment env)
         {
             var rootDirectory = env.ContentRootPath + "\\Files";
+            var filePath = $"{rootDirectory}\\Candidate.csv";
             FileHelper.CreateDirectory(rootDirectory);
-            FileHelper.CreateFile($"{rootDirectory}\\Candidate.csv");
-
+            FileHelper.CreateFile(filePath);
         }
+
+        
     }
 }

@@ -18,8 +18,16 @@ namespace Candidate.Common.FileHelper
         {
             if (!File.Exists(filePath) && !string.IsNullOrEmpty(filePath))
             {
-                File.Create(filePath);
+                File.Create(filePath).Close();
+                AddCsvFileHeader(filePath);
+
             }
+        }
+
+        private static void AddCsvFileHeader(string filePath)
+        {
+            using var streamWriter = new StreamWriter(filePath);
+            streamWriter.WriteLine("Email, FirstName, LastName, PhoneNumber, LinkedInUrl, GithubUrl, From, To, Comment");
         }
     }
 }
