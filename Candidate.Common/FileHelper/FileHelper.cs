@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -58,9 +59,15 @@ namespace Candidate.Common.FileHelper
             await File.WriteAllLinesAsync(path, filteredLines);
         }
 
-
-
-
+        public static async Task UpdateLine<T>(T entity, string path , string email)
+        {
+            var lines = await File.ReadAllLinesAsync(path);
+            var index = Array.FindIndex(lines, row => row.Split(',')[1].Trim() ==email.Trim());
+            var props = GetProps<T>();
+            var line = string.Join(", ", props.Select(p => p.GetValue(entity, null)));
+            lines[index] = line;
+            await File.WriteAllLinesAsync(path,lines);
+        }
 
         private static void AddCsvFileHeader(string filePath)
         {
@@ -79,6 +86,6 @@ namespace Candidate.Common.FileHelper
         }
 
 
-        
+
     }
 }

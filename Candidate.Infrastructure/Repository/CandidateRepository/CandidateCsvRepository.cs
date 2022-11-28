@@ -40,7 +40,7 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
 
         public async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
         {
-            await FileHelper.WriteCsv(newEntity, _path);
+            await FileHelper.UpdateLine(newEntity, _path , newEntity.Email);
         }
 
         public async Task DeleteAsync(string email)

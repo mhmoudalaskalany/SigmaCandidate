@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.DTO.Candidate;
+using Candidate.Common.Exceptions;
 using Candidate.Domain.Enum;
 using Microsoft.Extensions.Configuration;
 
@@ -43,6 +44,10 @@ namespace Candidate.Application.Services.Candidate
         public async Task<string> UpdateAsync(UpdateCandidateDto model)
         {
             var entityToUpdate = await _candidateRepository(_infrastructureType.ToString()).GetAsync(model.Email);
+            if (entityToUpdate == null)
+            {
+                throw new EntityNotFoundException(model.Email);
+            }
             var newEntity = _mapper.Map(model , entityToUpdate);
             await _candidateRepository(_infrastructureType.ToString()).UpdateAsync(entityToUpdate , newEntity);
             return entityToUpdate.Email;
