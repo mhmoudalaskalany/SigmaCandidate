@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Candidate.Api.Controllers.Base;
 using Candidate.Application.Services.Candidate;
 using Candidate.Common.Core;
@@ -32,7 +31,7 @@ namespace Candidate.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{email}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<List<CandidateDto>>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<CandidateDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(EntityNotFoundException))]
