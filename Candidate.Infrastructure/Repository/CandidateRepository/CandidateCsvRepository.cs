@@ -17,7 +17,7 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             _path = $"{_env.ContentRootPath}\\Files\\Candidate.csv";
         }
 
-        public async Task<Domain.Entities.Candidate> GetAsync(string email)
+        public virtual async Task<Domain.Entities.Candidate> GetAsync(string email)
         {
             var line = await FileHelper.GetSingleLine(_path, email);
             if (line == null)

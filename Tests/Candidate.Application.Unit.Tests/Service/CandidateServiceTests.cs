@@ -25,7 +25,6 @@ namespace Candidate.Application.Unit.Tests.Service
             Fixture.Register(() => _configurationMock.Object);
 
             _repositoryMock = new Mock<Func<string, ICandidateRepository>>();
-            Fixture.Register(() => _repositoryMock.Object);
 
             _mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MappingService>());
             Fixture.Register(() => _mapperConfig.CreateMapper());
@@ -49,8 +48,7 @@ namespace Candidate.Application.Unit.Tests.Service
         [Fact]
         public async Task GetAsync_ReturnItem()
         {
-            try
-            {
+          
                 // arrange
                 var entity = Fixture.Build<Domain.Entities.Candidate>().With(e => e.Email, "test@test.test").Create();
                 var mapped = Fixture.Build<CandidateDto>().With(e => e.Email, "test@test.test").Create();
@@ -72,13 +70,6 @@ namespace Candidate.Application.Unit.Tests.Service
 
                 // assert
                 Assert.NotNull(result);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-           
         }
     }
 }
