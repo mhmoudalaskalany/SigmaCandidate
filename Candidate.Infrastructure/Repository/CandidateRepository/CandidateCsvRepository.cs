@@ -10,6 +10,7 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
     {
         private readonly IWebHostEnvironment _env;
         private readonly string _path;
+
         public CandidateCsvRepository(IWebHostEnvironment env)
         {
             _env = env;

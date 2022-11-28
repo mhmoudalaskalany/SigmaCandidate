@@ -17,9 +17,9 @@ namespace Candidate.Application.Services.Candidate
         private readonly InfrastructureType _infrastructureType;
         public CandidateService(IMapper mapper, Func<string, ICandidateRepository> candidateRepository, IConfiguration configuration)
         {
-            _mapper = mapper ?? throw new ArgumentNullException(); ;
-            _candidateRepository = candidateRepository ?? throw new ArgumentNullException(); ;
-            _configuration = configuration ?? throw new ArgumentNullException();
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _candidateRepository = candidateRepository ?? throw new ArgumentNullException(nameof(candidateRepository));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _infrastructureType = int.Parse(_configuration["InfrastructureType"] ?? throw new InvalidOperationException()) == 0
                 ? InfrastructureType.Csv
                 : InfrastructureType.Database;
