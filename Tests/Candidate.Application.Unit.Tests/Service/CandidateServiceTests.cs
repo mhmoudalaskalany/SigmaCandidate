@@ -58,7 +58,6 @@ namespace Candidate.Application.Unit.Tests.Service
                
                 var env = new Mock<IWebHostEnvironment>();
                 var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
-                Fixture.Register(() =>csvRepositoryMock.Object);
                 _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
 
                 csvRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(entity);
@@ -76,13 +75,12 @@ namespace Candidate.Application.Unit.Tests.Service
         [Fact]
         public async Task GetAsync_ThrowsException()
         {
-            Domain.Entities.Candidate entity = null;
+            Domain.Entities.Candidate? entity = null;
             _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
 
 
             var env = new Mock<IWebHostEnvironment>();
             var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
-            Fixture.Register(() => csvRepositoryMock.Object);
             _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
 
             csvRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(entity);
@@ -107,7 +105,6 @@ namespace Candidate.Application.Unit.Tests.Service
 
             var env = new Mock<IWebHostEnvironment>();
             var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
-            Fixture.Register(() => csvRepositoryMock.Object);
             _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
 
             csvRepositoryMock.Setup(x => x.Any(It.IsAny<string>())).ReturnsAsync(isExist);
@@ -137,7 +134,6 @@ namespace Candidate.Application.Unit.Tests.Service
 
             var env = new Mock<IWebHostEnvironment>();
             var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
-            Fixture.Register(() => csvRepositoryMock.Object);
             _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
 
             csvRepositoryMock.Setup(x => x.Any(It.IsAny<string>())).ReturnsAsync(isExist);
