@@ -13,7 +13,7 @@
 - To Save The Data in CSV file change the (InfrastructureType) in appsettings.json to 0 (default value)
 - To Save The Date In A Database change the (InfrastructureType) in appsettings.json to 1 
 - To Save The Data in InMemoryDatabase change UseInMemoryDatabase to true (default)
-- To Save The Data in Sql Database  change UseInMemoryDatabase to false 
+- To Save The Data in Sql Database  change UseInMemoryDatabase to false (Migration Will Be Migrated Authomatically)
 
 ![layers](https://github.com/mhmoudalaskalany/Images/blob/main/task_images/appsettings.png)
 
