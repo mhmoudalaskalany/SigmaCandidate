@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Candidate.Common.FileHelper
 {
+    [ExcludeFromCodeCoverage]
     public static class CsvRowParser
     {
         public static Domain.Entities.Candidate ParseRow(string line)

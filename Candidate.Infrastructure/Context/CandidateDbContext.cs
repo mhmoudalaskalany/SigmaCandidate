@@ -1,8 +1,10 @@
-﻿using Candidate.Infrastructure.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using Candidate.Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Candidate.Infrastructure.Context
 {
+    [ExcludeFromCodeCoverage]
     public class CandidateDbContext : DbContext
     {
         public CandidateDbContext(DbContextOptions<CandidateDbContext> options) : base(options)

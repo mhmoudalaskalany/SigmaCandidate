@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Candidate.Infrastructure.Configuration
 {
+    [ExcludeFromCodeCoverage]
     public class CandidateConfig : IEntityTypeConfiguration<Domain.Entities.Candidate>
     {
         public virtual void Configure(EntityTypeBuilder<Domain.Entities.Candidate> builder)
