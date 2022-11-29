@@ -196,5 +196,30 @@ namespace Candidate.Application.Unit.Tests.Service
             var service = new CandidateService(_mapperMock.Object, _repositoryMock.Object, _configurationMock.Object);
             await Assert.ThrowsAsync<EntityNotFoundException>(() => service.UpdateAsync(dto));
         }
+
+
+        [Fact]
+        public async Task DeleteAsync_ReturnEmail_And_Delete_Is_Called()
+        {
+
+            // arrange
+            var email = "test@test.test";
+            var entity = Fixture.Build<Domain.Entities.Candidate>().With(e => e.Email, email).Create();
+
+            _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
+
+            var env = new Mock<IWebHostEnvironment>();
+            var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
+            _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
+            
+
+            var service = new CandidateService(_mapperMock.Object, _repositoryMock.Object, _configurationMock.Object);
+            // act
+            var result = await service.DeleteAsync(email);
+
+            // assert
+            csvRepositoryMock.Verify(e => e.DeleteAsync(It.IsAny<string>()), Times.Once);
+            Assert.Equal(email, result);
+        }
     }
 }
