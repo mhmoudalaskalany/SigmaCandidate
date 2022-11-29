@@ -6,6 +6,7 @@ using Candidate.Application.Services.Candidate;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.DTO.Candidate;
 using Candidate.Common.Exceptions;
+using Candidate.Domain.Enum;
 using Candidate.Infrastructure.Repository.CandidateRepository;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -15,7 +16,7 @@ namespace Candidate.Application.Unit.Tests.Service
     public class CandidateServiceWithDatabaseTests : AutoFixtureBase
     {
         private readonly Mock<IConfiguration> _configurationMock;
-        private readonly Mock<Func<string, ICandidateRepository>> _repositoryMock;
+        private readonly Mock<Func<InfrastructureType, ICandidateRepository>> _repositoryMock;
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<CandidateRepository> _databaseRepositoryMock;
         private readonly MapperConfiguration _mapperConfig;
@@ -27,8 +28,8 @@ namespace Candidate.Application.Unit.Tests.Service
             Fixture.Register(() => _configurationMock.Object);
 
             _databaseRepositoryMock = new Mock<CandidateRepository>();
-            _repositoryMock = new Mock<Func<string, ICandidateRepository>>();
-            _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(_databaseRepositoryMock.Object);
+            _repositoryMock = new Mock<Func<InfrastructureType, ICandidateRepository>>();
+            _repositoryMock.Setup(e => e.Invoke(InfrastructureType.Database)).Returns(_databaseRepositoryMock.Object);
 
             _mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MappingService>());
             Fixture.Register(() => _mapperConfig.CreateMapper());

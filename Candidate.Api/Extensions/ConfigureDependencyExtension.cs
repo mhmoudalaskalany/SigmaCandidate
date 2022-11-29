@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Candidate.Application.Mapping;
 using Candidate.Application.Services.Candidate;
 using Candidate.Common.Abstraction.Repository;
+using Candidate.Domain.Enum;
 using Candidate.Infrastructure.Context;
 using Candidate.Infrastructure.Repository.CandidateRepository;
 using Microsoft.EntityFrameworkCore;
@@ -111,12 +112,12 @@ namespace Candidate.Api.Extensions
         {
             services.AddScoped<CandidateRepository>();
             services.AddScoped<CandidateCsvRepository>();
-            services.AddScoped<Func<string, ICandidateRepository>>(serviceProvider => key =>
+            services.AddScoped<Func<InfrastructureType, ICandidateRepository>>(serviceProvider => key =>
             {
                 return key switch
                 {
-                    "Csv" => serviceProvider.GetService<CandidateCsvRepository>(),
-                    "Database" => serviceProvider.GetService<CandidateRepository>(),
+                    InfrastructureType.Csv => serviceProvider.GetService<CandidateCsvRepository>(),
+                    InfrastructureType.Database => serviceProvider.GetService<CandidateRepository>(),
                     _ => serviceProvider.GetService<CandidateCsvRepository>()
                 };
             });

@@ -12,10 +12,10 @@ namespace Candidate.Application.Services.Candidate
     public class CandidateService : ICandidateService
     {
         private readonly IMapper _mapper;
-        private readonly Func<string, ICandidateRepository> _candidateRepository;
+        private readonly Func<InfrastructureType, ICandidateRepository> _candidateRepository;
         private readonly IConfiguration _configuration;
         private readonly InfrastructureType _infrastructureType;
-        public CandidateService(IMapper mapper, Func<string, ICandidateRepository> candidateRepository, IConfiguration configuration)
+        public CandidateService(IMapper mapper, Func<InfrastructureType, ICandidateRepository> candidateRepository, IConfiguration configuration)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _candidateRepository = candidateRepository ?? throw new ArgumentNullException(nameof(candidateRepository));
@@ -28,7 +28,7 @@ namespace Candidate.Application.Services.Candidate
 
         public async Task<CandidateDto> GetAsync(string email)
         {
-            var entity = await _candidateRepository(_infrastructureType.ToString()).GetAsync(email);
+            var entity = await _candidateRepository(_infrastructureType).GetAsync(email);
             if (entity == null)
             {
                 throw new EntityNotFoundException(email);
@@ -39,32 +39,32 @@ namespace Candidate.Application.Services.Candidate
 
         public async Task<string> AddAsync(AddCandidateDto model)
         {
-            var isExist = await _candidateRepository(_infrastructureType.ToString()).Any(model.Email);
+            var isExist = await _candidateRepository(_infrastructureType).Any(model.Email);
             if (isExist)
             {
                 throw new BusinessException("Email Already Exist", null);
             }
             var entity = _mapper.Map<AddCandidateDto , Domain.Entities.Candidate>(model);
-            await _candidateRepository(_infrastructureType.ToString()).AddAsync(entity);
+            await _candidateRepository(_infrastructureType).AddAsync(entity);
             return entity.Email;
 
         }
 
         public async Task<string> UpdateAsync(UpdateCandidateDto model)
         {
-            var entityToUpdate = await _candidateRepository(_infrastructureType.ToString()).GetAsync(model.Email);
+            var entityToUpdate = await _candidateRepository(_infrastructureType).GetAsync(model.Email);
             if (entityToUpdate == null)
             {
                 throw new EntityNotFoundException(model.Email);
             }
             var newEntity = _mapper.Map(model, entityToUpdate);
-            await _candidateRepository(_infrastructureType.ToString()).UpdateAsync(entityToUpdate, newEntity);
+            await _candidateRepository(_infrastructureType).UpdateAsync(entityToUpdate, newEntity);
             return entityToUpdate.Email;
         }
 
         public async Task<string> DeleteAsync(string email)
         {
-            await _candidateRepository(_infrastructureType.ToString()).DeleteAsync(email);
+            await _candidateRepository(_infrastructureType).DeleteAsync(email);
             return email;
 
         }
