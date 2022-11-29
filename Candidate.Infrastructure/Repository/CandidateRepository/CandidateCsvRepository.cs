@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.Exceptions;
 using Candidate.Common.FileHelper;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Candidate.Infrastructure.Repository.CandidateRepository
 {
+    [ExcludeFromCodeCoverage]
     public class CandidateCsvRepository : ICandidateRepository
     {
         private readonly IWebHostEnvironment _env;
