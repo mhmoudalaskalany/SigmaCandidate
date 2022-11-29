@@ -7,7 +7,9 @@ using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.DTO.Candidate;
 using Candidate.Common.Exceptions;
 using Candidate.Domain.Enum;
+using Candidate.Infrastructure.Context;
 using Candidate.Infrastructure.Repository.CandidateRepository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -27,7 +29,9 @@ namespace Candidate.Application.Unit.Tests.Service
             _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("1");
             Fixture.Register(() => _configurationMock.Object);
 
-            _databaseRepositoryMock = new Mock<CandidateRepository>();
+            var mockDbContextOptions = new Mock<DbContextOptions<CandidateDbContext>>();
+            var mockDbContextMock = new Mock<CandidateDbContext>(mockDbContextOptions.Object);
+            _databaseRepositoryMock = new Mock<CandidateRepository>(mockDbContextMock.Object);
             _repositoryMock = new Mock<Func<InfrastructureType, ICandidateRepository>>();
             _repositoryMock.Setup(e => e.Invoke(InfrastructureType.Database)).Returns(_databaseRepositoryMock.Object);
 

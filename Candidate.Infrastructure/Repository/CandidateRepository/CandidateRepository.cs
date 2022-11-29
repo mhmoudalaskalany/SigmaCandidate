@@ -1,48 +1,57 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Candidate.Common.Abstraction.Repository;
-using Candidate.Infrastructure.Context;
+using Candidate.Infrastructure.DbContextFactory;
 using Microsoft.EntityFrameworkCore;
 
 namespace Candidate.Infrastructure.Repository.CandidateRepository
 {
     public class CandidateRepository : ICandidateRepository
     {
-        private readonly CandidateDbContext _context;
+        private readonly IDbContextFactory _dbContextFactory;
 
-        public CandidateRepository(CandidateDbContext context)
+        public CandidateRepository(IDbContextFactory dbContextFactory)
         {
-            _context = context;
+            _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
-        public async Task<Domain.Entities.Candidate> GetAsync(string email)
+        public virtual async Task<Domain.Entities.Candidate> GetAsync(string email)
         {
-            return await _context.Candidates.FindAsync(email);
+            var context = _dbContextFactory.CreateCandidateDbContext();
+            return await context.Candidates.FindAsync(email);
         }
 
-        public async Task<bool> Any(string email) =>   await _context.Candidates.AnyAsync(x => x.Email == email);
-
-        public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
+        public virtual async Task<bool> Any(string email)
         {
-            var result = await _context.Candidates.AddAsync(newEntity);
-            await _context.SaveChangesAsync();
+            var context = _dbContextFactory.CreateCandidateDbContext();
+            return await context.Candidates.AnyAsync(x => x.Email == email);
+        }
+
+        public virtual async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
+        {
+            var context = _dbContextFactory.CreateCandidateDbContext();
+            var result = await context.Candidates.AddAsync(newEntity);
+            await context.SaveChangesAsync();
             return result.Entity.Email;
         }
 
-        public async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
+        public virtual async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
         {
-            _context.Candidates.Entry(originalEntity).CurrentValues.SetValues(newEntity);
-            await _context.SaveChangesAsync();
+            var context = _dbContextFactory.CreateCandidateDbContext();
+            context.Candidates.Entry(originalEntity).CurrentValues.SetValues(newEntity);
+            await context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(string email)
+        public virtual async Task DeleteAsync(string email)
         {
-            var entity = await _context.Candidates.FirstOrDefaultAsync(x => x.Email == email);
+            var context = _dbContextFactory.CreateCandidateDbContext();
+            var entity = await context.Candidates.FirstOrDefaultAsync(x => x.Email == email);
             if (entity != null)
             {
-                _context.Candidates.Remove(entity);
-                await _context.SaveChangesAsync();
+                context.Candidates.Remove(entity);
+                await context.SaveChangesAsync();
             }
-            
+
         }
     }
 }

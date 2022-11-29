@@ -5,6 +5,7 @@ using Candidate.Application.Services.Candidate;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Domain.Enum;
 using Candidate.Infrastructure.Context;
+using Candidate.Infrastructure.DbContextFactory;
 using Candidate.Infrastructure.Repository.CandidateRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +57,7 @@ namespace Candidate.Api.Extensions
         /// <param name="configuration"></param>
         private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<IDbContextFactory>(new DbContextFactory(configuration));
             services.AddDbContext<CandidateDbContext>(options =>
             {
                 var inMemory = configuration["UseInMemoryDatabase"];
@@ -67,8 +69,8 @@ namespace Candidate.Api.Extensions
                 {
                     options.UseSqlServer(configuration.GetConnectionString(ConnectionStringName));
                 }
-                
-                
+
+
             });
             services.AddScoped<DbContext, CandidateDbContext>();
         }
