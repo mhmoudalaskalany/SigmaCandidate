@@ -5,6 +5,7 @@ using Candidate.Application.Mapping;
 using Candidate.Application.Services.Candidate;
 using Candidate.Common.Abstraction.Repository;
 using Candidate.Common.DTO.Candidate;
+using Candidate.Common.Exceptions;
 using Candidate.Infrastructure.Repository.CandidateRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -70,6 +71,80 @@ namespace Candidate.Application.Unit.Tests.Service
 
                 // assert
                 Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task GetAsync_ThrowsException()
+        {
+            Domain.Entities.Candidate entity = null;
+            _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
+
+
+            var env = new Mock<IWebHostEnvironment>();
+            var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
+            Fixture.Register(() => csvRepositoryMock.Object);
+            _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
+
+            csvRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(entity);
+
+            var service = new CandidateService(_mapperMock.Object, _repositoryMock.Object, _configurationMock.Object);
+   
+            await Assert.ThrowsAsync<EntityNotFoundException>(() =>  service.GetAsync("test@test.test"));
+        }
+
+
+        [Fact]
+        public async Task AddAsync_ReturnEmail()
+        {
+
+            // arrange
+            var isExist = false;
+            var email = "test@test.test";
+            var dto = Fixture.Build<AddCandidateDto>().With(e => e.Email, email).Create();
+            var entity = Fixture.Build<Domain.Entities.Candidate>().With(e => e.Email, email).Create();
+
+            _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
+
+            var env = new Mock<IWebHostEnvironment>();
+            var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
+            Fixture.Register(() => csvRepositoryMock.Object);
+            _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
+
+            csvRepositoryMock.Setup(x => x.Any(It.IsAny<string>())).ReturnsAsync(isExist);
+
+            _mapperMock.Setup(x => x.Map<AddCandidateDto, Domain.Entities.Candidate>(It.IsAny<AddCandidateDto>()))
+                .Returns(entity);
+
+            csvRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Domain.Entities.Candidate>())).ReturnsAsync(email);
+            
+            var service = new CandidateService(_mapperMock.Object, _repositoryMock.Object, _configurationMock.Object);
+            // act
+            var result = await service.AddAsync(dto);
+
+            // assert
+            Assert.Equal(email , result);
+        }
+
+        [Fact]
+        public async Task AddAsync_ThrowsException()
+        {
+
+            // arrange
+            var isExist = true;
+            var email = "test@test.test";
+            var dto = Fixture.Build<AddCandidateDto>().With(e => e.Email , email).Create();
+            _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
+
+            var env = new Mock<IWebHostEnvironment>();
+            var csvRepositoryMock = new Mock<CandidateCsvRepository>(env.Object);
+            Fixture.Register(() => csvRepositoryMock.Object);
+            _repositoryMock.Setup(e => e.Invoke("Csv")).Returns(csvRepositoryMock.Object);
+
+            csvRepositoryMock.Setup(x => x.Any(It.IsAny<string>())).ReturnsAsync(isExist);
+
+
+            var service = new CandidateService(_mapperMock.Object, _repositoryMock.Object, _configurationMock.Object);
+            await Assert.ThrowsAsync<BusinessException>(() => service.AddAsync(dto));
         }
     }
 }

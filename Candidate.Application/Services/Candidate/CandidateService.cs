@@ -44,7 +44,7 @@ namespace Candidate.Application.Services.Candidate
             {
                 throw new BusinessException("Email Already Exist", null);
             }
-            var entity = _mapper.Map<Domain.Entities.Candidate>(model);
+            var entity = _mapper.Map<AddCandidateDto , Domain.Entities.Candidate>(model);
             await _candidateRepository(_infrastructureType.ToString()).AddAsync(entity);
             return entity.Email;
 

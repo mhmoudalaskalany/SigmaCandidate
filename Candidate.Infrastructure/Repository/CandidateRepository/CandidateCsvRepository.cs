@@ -28,23 +28,23 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             return candidate;
         }
 
-        public async Task<bool> Any(string email)
+        public virtual async Task<bool> Any(string email)
         {
             return await FileHelper.IsExist(_path, email);
         }
 
-        public async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
+        public virtual async Task<string> AddAsync(Domain.Entities.Candidate newEntity)
         {
             await FileHelper.WriteCsv(newEntity, _path);
             return newEntity.Email;
         }
 
-        public async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
+        public virtual async Task UpdateAsync(Domain.Entities.Candidate originalEntity, Domain.Entities.Candidate newEntity)
         {
             await FileHelper.UpdateLine(newEntity, _path , newEntity.Email);
         }
 
-        public async Task DeleteAsync(string email)
+        public virtual async Task DeleteAsync(string email)
         {
             await FileHelper.DeleteLine(_path, email);
         }
