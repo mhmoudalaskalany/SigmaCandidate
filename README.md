@@ -24,6 +24,6 @@
 ![layers](https://github.com/mhmoudalaskalany/Images/blob/main/task_images/testresult.png)
 
 # Improvements:
-- DDD architecture can be use instead of CRUD service with Mediator and CQRS if the domain odel is getting more complex
+- DDD architecture can be use instead of CRUD service with Mediator and CQRS if the domain model is getting more complex
 - More Tests Can be Written to Cover More Parts Of The Code
-- Memory Caching Can Be Used TO Cache Api Responses
+- Memory Caching Can Be Used To Cache Api Responses
