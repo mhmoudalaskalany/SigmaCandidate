@@ -204,7 +204,6 @@ namespace Candidate.Application.Unit.Tests.Service
 
             // arrange
             var email = "test@test.test";
-            var entity = Fixture.Build<Domain.Entities.Candidate>().With(e => e.Email, email).Create();
 
             _configurationMock.SetupGet(x => x[It.Is<string>(s => s == "InfrastructureType")]).Returns("0");
 
