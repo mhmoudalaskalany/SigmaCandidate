@@ -27,3 +27,7 @@
 - DDD architecture can be use instead of CRUD service with Mediator and CQRS if the domain model is getting more complex
 - More Tests Can be Written to Cover More Parts Of The Code
 - Memory Caching Can Be Used To Cache Api Responses
+
+
+# Time:
+- Total Time Of Implementation 7:40 Hours including laying out the base architecture of the project and folder structure
