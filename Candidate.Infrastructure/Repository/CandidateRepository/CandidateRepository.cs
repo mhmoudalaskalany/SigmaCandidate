@@ -53,5 +53,6 @@ namespace Candidate.Infrastructure.Repository.CandidateRepository
             }
 
         }
+
     }
 }
